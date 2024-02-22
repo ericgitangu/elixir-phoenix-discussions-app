@@ -19,7 +19,7 @@ defmodule Discuss.MixProject do
   def application do
     [
       mod: {Discuss.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :ueberauth]
     ]
   end
 
@@ -57,7 +57,9 @@ defmodule Discuss.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
-      {:bandit, "~> 1.2"}
+      {:bandit, "~> 1.2"},
+      {:ueberauth, "~> 0.8"},
+      {:ueberauth_github, "~> 0.8"}
     ]
   end
 

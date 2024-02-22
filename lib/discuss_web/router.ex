@@ -1,5 +1,6 @@
 defmodule DiscussWeb.Router do
   use DiscussWeb, :router
+  alias Ueberauth
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -8,6 +9,7 @@ defmodule DiscussWeb.Router do
     plug :put_root_layout, html: {DiscussWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Discuss.Auth
   end
 
   pipeline :api do
@@ -18,12 +20,37 @@ defmodule DiscussWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
-    resources "/topics", TopicController
-    resources "/users", UsersController
-
-
   end
 
+  scope "/topics", DiscussWeb do
+    pipe_through :browser
+
+    resources "/", TopicController
+  end
+
+  scope "/users", DiscussWeb do
+    pipe_through :browser
+
+    resources "/", UsersController
+  end
+
+  scope "/comments", DiscussWeb do
+    pipe_through :browser
+
+    resources "/", CommentController
+  end
+
+  # pipeline :auth do
+  #   plug Ueberauth
+  # end
+
+  scope "/auth", DiscussWeb do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback_phase
+    delete "/logout", AuthController, :logout
+  end
   # Other scopes may use custom stacks.
   # scope "/api", DiscussWeb do
   #   pipe_through :api

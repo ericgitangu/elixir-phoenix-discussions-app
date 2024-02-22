@@ -3,24 +3,24 @@
     <div class="flex items-center gap-4">
       <a href="/">
         <img src={~p"/images/logo.svg"} width="36" />
+        <p class="bg-brand/5 text-brand rounded-full px-2 font-medium leading-6">
+          Discussions
+        </p>
       </a>
-      <p class="bg-brand/5 text-brand rounded-full px-2 font-medium leading-6">
-        v<%= Application.spec(:phoenix, :vsn) %>
-      </p>
     </div>
     <div class="flex items-center gap-4 font-semibold leading-6 text-zinc-900">
-      <a href="https://twitter.com/elixirphoenix" class="hover:text-zinc-700">
-        @elixirphoenix
+      <a href="https://discord.com/users/637500198976880670/" class="hover:text-zinc-700">
+        @deveric <span aria-hidden="true"><.icon name="hero-external-link-solid" class="ml-1 w-3 h-3"/></span>
       </a>
-      <a href="https://github.com/phoenixframework/phoenix" class="hover:text-zinc-700">
-        GitHub
+      <%= if @conn.assigns[:user] do %>
+      <a href="/logout" class="hover:text-zinc-700">
+        Logout <span aria-hidden="true"><.icon name="hero-lock-opened-solid" class="ml-1 w-3 h-3"/></span>
       </a>
-      <a
-        href="https://hexdocs.pm/phoenix/overview.html"
-        class="rounded-lg bg-zinc-100 px-2 py-1 hover:bg-zinc-200/80"
-      >
-        Get Started <span aria-hidden="true">&rarr;</span>
-      </a>
+      <% else %>
+        <a href="/auth/github" class="hover:text-zinc-700">
+          Login <span aria-hidden="true"><.icon name="hero-lock-closed-solid" class="ml-1 w-3 h-3"/></span>
+        </a>
+      <% end %>
     </div>
   </div>
 </header>

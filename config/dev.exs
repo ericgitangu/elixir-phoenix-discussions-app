@@ -80,3 +80,16 @@ config :phoenix_live_view, :debug_heex_annotations, true
 
 # Disable swoosh api client as it is only required for production adapters.
 config :swoosh, :api_client, false
+
+config :ueberauth, Ueberauth,
+  providers: [
+    github: { Ueberauth.Strategy.Github, [] }
+  ],
+  ignore_csrf_attack: true
+
+config :ueberauth, Ueberauth.Strategy.Github.OAuth,
+  client_id: "db2b73c55b0a729b48fe",
+  client_secret: "68acb368d64be4bee80573a0b1c21ba3af4ac52f"
+
+#   cliend_id: System.get_env("GITHUB_CLIENT_ID"),
+#   client_secret: System.get_env("GITHUB_CLIENT_SECRET")

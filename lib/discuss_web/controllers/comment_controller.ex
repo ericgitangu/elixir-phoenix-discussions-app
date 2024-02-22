@@ -42,6 +42,7 @@ defmodule DiscussWeb.CommentController do
 
     case Discussions.update_comment(comment, comment_params) do
       {:ok, comment} ->
+        IO.puts("comment_params: #{inspect(comment_params)}")
         conn
         |> put_flash(:info, "Comment updated successfully.")
         |> redirect(to: ~p"/comments/#{comment}")
