@@ -1,7 +1,7 @@
 defmodule Discuss.Repo.Migrations.CreateUsers do
   use Ecto.Migration
 
-  @devivers {Jason.Encoder, only: [:email, :avatar_url, :name]}
+  @derive {Jason.Encoder, only: [:email, :avatar_url, :name]}
   def change do
     create table(:users) do
       add :email, :string

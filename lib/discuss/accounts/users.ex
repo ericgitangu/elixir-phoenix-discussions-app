@@ -14,7 +14,7 @@ defmodule Discuss.Accounts.Users do
   @doc false
   def changeset(users, attrs) do
     users
-    |> cast(attrs, [:email, :avatar_url, :name])
+    |> cast(Map.from_struct(attrs), [:email, :avatar_url, :name])
     |> validate_required([:email, :name])
   end
 end
