@@ -9,20 +9,32 @@
       </a>
     </div>
     <div class="flex items-center gap-4 font-semibold leading-6 text-zinc-900">
-      <a href="https://discord.com/users/637500198976880670/" class="hover:text-zinc-700">
+      <a
+        href="https://discord.com/users/637500198976880670/"
+        class="hover:text-zinc-700"
+        target="_blank"
+      >
         @deveric
         <span aria-hidden="true">
           <.icon name="hero-external-link-solid" class="ml-1 w-3 h-3" />
         </span>
       </a>
       <%= if @conn.assigns.current_user do %>
-        <.link href={~p"/auth/logout"} method="delete"class="block py-2 px-4 text-sm text-gray-700 hover:text-zinc-700">
+        <.link
+          href={~p"/auth/logout"}
+          method="delete"
+          class="block py-2 px-4 text-sm text-gray-700 hover:text-zinc-700"
+        >
           <span aria-hidden="true">
             Logout<.icon name="hero-lock-open-solid" class="ml-1 w-3 h-3" />
           </span>
         </.link>
       <% else %>
-        <.link href={~p"/auth/github"} method="get"class="block py-2 px-4 text-sm text-gray-700 hover:text-zinc-700">
+        <.link
+          href={~p"/auth/github"}
+          method="get"
+          class="block py-2 px-4 text-sm text-gray-700 hover:text-zinc-700"
+        >
           <span aria-hidden="true">
             Login<.icon name="hero-lock-closed-solid" class="ml-1 w-3 h-3" />
           </span>
