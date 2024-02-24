@@ -14,8 +14,9 @@ defmodule Discuss.Plugs.Verify do
         conn
       user_id == nil ->
         conn
-        |> put_flash(:error, "You must be logged to perform this action.")
-        |> redirect(to: "/topics")
+        |> put_session(:status, 403)
+        |> put_flash(:error, "Action forbidden, you must be log in.")
+        |> redirect(to: "/"<>List.first(conn.path_info))
         |> halt()
       true ->
         assign(conn, :current_user, nil)

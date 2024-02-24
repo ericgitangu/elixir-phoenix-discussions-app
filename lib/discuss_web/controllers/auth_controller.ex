@@ -12,6 +12,7 @@ defmodule DiscussWeb.AuthController do
 def callback_phase(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
   nickname = auth.info.nickname
   token = auth.credentials.token
+  name = auth.info.name
 
   user_creation_result = Accounts.get_or_create_user(conn, auth.info)
 
@@ -19,7 +20,7 @@ def callback_phase(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
     {:ok, user} ->
        conn
        |> put_session(:ueberauth_auth_info, nickname)
-       |> put_flash(:info, "Welcome back #{nickname}!")
+       |> put_flash(:info, "Welcome back #{name}!")
        |> put_session(:user, user)
        |> put_session(:current_user, user.id)
        |> put_session("authorization", "Token Bearer: #{token}")

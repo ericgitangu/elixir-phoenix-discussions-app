@@ -1,8 +1,11 @@
 defmodule DiscussWeb.CommentController do
   use DiscussWeb, :controller
 
+  import Ecto
   alias Discuss.Discussions
   alias Discuss.Discussions.Comment
+
+  plug Discuss.Plugs.Verify when action in [:new, :create, :edit, :update, :delete]
 
   def index(conn, _params) do
     comments = Discussions.list_comments()
@@ -15,7 +18,11 @@ defmodule DiscussWeb.CommentController do
   end
 
   def create(conn, %{"comment" => comment_params}) do
-    case Discussions.create_comment(comment_params) do
+    changeset =
+      conn.assigns.current_user
+      |> build_assoc(:comments)
+      |> Comment.changeset(comment_params)
+    case Discuss.Repo.insert(changeset) do
       {:ok, comment} ->
         conn
         |> put_flash(:info, "Comment created successfully.")

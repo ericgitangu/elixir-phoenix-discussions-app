@@ -1,15 +1,20 @@
 <.header>
-  Topic <%= @topic.id %>
+  <%= @topic.title %>
   <:subtitle>This is a topic record from your database.</:subtitle>
   <:actions>
+    <%= if @conn.assigns.current_user do %>
     <.link href={~p"/topics/#{@topic}/edit"}>
       <.button>Edit topic</.button>
     </.link>
+    <% end %>
   </:actions>
 </.header>
 
 <.list>
-  <:item title="Title"><%= @topic.title %></:item>
+  <:item title="comment"><%= @comment.content %> </:item>
+  <:item title="author"><%=@conn.assigns.current_user && @conn.assigns.current_user.id == @comment.id && @conn.assigns.current_user.name %> </:item>
+  <:item title="created at"><%= @comment.inserted_at %> </:item>
+  <:item title="updated at"><%= @comment.updated_at %> </:item>
 </.list>
 
 <.back navigate={~p"/topics"}>Back to topics</.back>

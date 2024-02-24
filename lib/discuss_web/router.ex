@@ -51,6 +51,7 @@ defmodule DiscussWeb.Router do
     get "/:provider/callback", AuthController, :callback_phase
     delete "/logout", AuthController, :logout
   end
+
   # Other scopes may use custom stacks.
   # scope "/api", DiscussWeb do
   #   pipe_through :api

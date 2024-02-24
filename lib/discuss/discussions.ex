@@ -7,6 +7,7 @@ defmodule Discuss.Discussions do
   alias Discuss.Repo
 
   alias Discuss.Discussions.Topic
+  alias Discuss.Discussions.Comment
 
   @doc """
   Returns the list of topics.
@@ -35,7 +36,25 @@ defmodule Discuss.Discussions do
       ** (Ecto.NoResultsError)
 
   """
-  def get_topic!(id), do: Repo.get!(Topic, id)
+  def get_topic!(id), do: Repo.get(Topic, id)
+
+  @doc """
+  Gets a single comment
+
+  Raises `Ecto.NoResultsError` if the Comment does not exist.
+
+  ## Examples
+
+      iex> get_comment!(123)
+      %Comment{}
+
+      iex> get_comment!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+
+  def get_comment!(id), do: Repo.get!(Comment, id)
+
 
   @doc """
   Creates a topic.
@@ -118,22 +137,6 @@ defmodule Discuss.Discussions do
   end
 
   @doc """
-  Gets a single comment.
-
-  Raises `Ecto.NoResultsError` if the Comment does not exist.
-
-  ## Examples
-
-      iex> get_comment!(123)
-      %Comment{}
-
-      iex> get_comment!(456)
-      ** (Ecto.NoResultsError)
-
-  """
-  def get_comment!(id), do: Repo.get!(Comment, id)
-
-  @doc """
   Creates a comment.
 
   ## Examples
@@ -196,5 +199,15 @@ defmodule Discuss.Discussions do
   """
   def change_comment(%Comment{} = comment, attrs \\ %{}) do
     Comment.changeset(comment, attrs)
+  end
+
+  def get_comments_by_topic_id(topic_id) do
+    from(c in Comment, where: c.topic_id == ^topic_id, select: c)
+    |> Repo.all()
+  end
+
+  def get_user_comments_by_user_id(user_id) do
+    from(c in Comment, where: c.users_id == ^user_id, select: c)
+    |> Repo.all()
   end
 end

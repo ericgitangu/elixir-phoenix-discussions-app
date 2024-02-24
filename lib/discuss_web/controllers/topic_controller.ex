@@ -5,7 +5,7 @@ defmodule DiscussWeb.TopicController do
   alias Discuss.Discussions
   alias Discuss.Discussions.Topic
 
-  plug Discuss.Plugs.Verify when action in [:new, :create, :edit, :update, :delete]
+  plug Discuss.Plugs.Verify when action in [:new, :create, :edit, :update, :delete, :show]
 
   plug :check_topic_owner, when: [:edit, :update, :delete]
 
@@ -39,7 +39,9 @@ defmodule DiscussWeb.TopicController do
 
   def show(conn, %{"id" => id}) do
     topic = Discussions.get_topic!(id)
-    render(conn, :show, topic: topic)
+    comment = List.first(Discussions.get_user_comments_by_user_id(conn.assigns.current_user.id))
+    IO.inspect(comment, label: "comment")
+    render(conn, :show, %{topic: topic, comment: comment})
   end
 
   def edit(conn, %{"id" => id}) do
@@ -74,18 +76,18 @@ defmodule DiscussWeb.TopicController do
   import Discuss.Repo
 
   def check_topic_owner(conn, _params) do
-    if conn.params == %{} do
+    IO.inspect(Map.get(conn.params, :id), label: "conn.params")
+    if Map.get(conn.params, :id) == nil do
       conn
     else
-      %{"id" => params} = conn.params
-      {post_id, _} = Integer.parse(params)
+      {post_id, _} = Integer.parse(Map.get(conn.params, :id))
 
       try do
         topic = get(Topic, post_id)
 
         if !is_nil(topic) && topic.users_id != conn.assigns.current_user.id do
           conn
-          |> put_flash(:error, "You are not authorized to perform this action.")
+          |> put_flash(:error, "You are not authorized to perform this action on topic.")
           |> redirect(to: "/topics/")
           |> halt()
         else
