@@ -2,7 +2,6 @@ defmodule DiscussWeb.TopicHTML do
   use DiscussWeb, :html
 
   embed_templates "topic_html/*"
-  embed_templates "comment_html/*"
 
   @doc """
   Renders a topic form.

@@ -7,6 +7,7 @@ defmodule Discuss.Accounts.Users do
     field :email, :string
     field :avatar_url, :string
     field(:name, :string)
+    has_many :topics, Discuss.Discussions.Topic
 
     timestamps(type: :utc_datetime)
   end
