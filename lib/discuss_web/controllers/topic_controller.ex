@@ -4,6 +4,8 @@ defmodule DiscussWeb.TopicController do
   alias Discuss.Discussions
   alias Discuss.Discussions.Topic
 
+  plug Discuss.Plugs.Verify when action in [:new, :create, :edit, :update, :delete]
+
   def index(conn, _params) do
     # IO.inspect(conn, label: "conn")
     topics = Discussions.list_topics()
