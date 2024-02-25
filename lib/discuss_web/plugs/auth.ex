@@ -13,6 +13,8 @@ defmodule Discuss.Auth do
   cond do
     user_id ->
       user = Repo.get(Accounts.Users, user_id)
+      assign(conn, :user_id, user_id)
+      assign(conn, :user, user)
       assign(conn, :current_user, user)
     true ->
       assign(conn, :current_user, nil)
