@@ -1,18 +1,52 @@
-# Discuss
+# Elixir Phoenix Discussions App
 
-To start your Phoenix server:
+## Description
 
-  * Run `mix setup` to install and setup dependencies
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+This is an Elixir Phoenix application for discussions.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Folder Structure
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+- `config`: Contains configuration files for the app.
+- `lib`: Contains source code files for the application logic.
+- `priv`: Contains private application files (e.g., assets, templates).
+- `test`: Contains test files for the application.
 
-## Learn more
+## Installation
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+To set up and run this application, you need to follow these steps:
+
+1. Clone the repository: `git clone https:/github.com/ericgitangu/elixir-phoenix-discussions-app`
+2. Install dependencies: `mix deps.get`
+3. Create and migrate the database: `mix ecto.setup`
+4. Start the Phoenix server: `mix phx.server`
+
+## Usage
+
+To use the application, follow these steps:
+
+1. Access the application at `http://localhost:4000`
+2. Sign up or log in with Github to start viewing and participating in discussions - Topics, comments.
+
+## Examples
+
+### Creating a Discussion
+
+elixir iex> discussion = %Discussion{title: "New discussion", body: "This is a new discussion"} iex> {:ok, _} = Discussions.create_discussion(discussion)
+
+### Adding a Comment to a Discussion
+
+elixir iex> discussion_id = 1 iex> comment = %Comment{body: "This is a comment"} iex> {:ok,_} = Discussions.add_comment(discussion_id, comment)
+
+## Contributing
+
+Contributions are welcome! To contribute to this project, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch: `git checkout -b feature/branch-name`
+3. Make your changes and commit them: `git commit -am 'Add some feature'`
+4. Push the changes to your fork: `git push origin feature/branch-name`
+5. Submit a pull request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE)
