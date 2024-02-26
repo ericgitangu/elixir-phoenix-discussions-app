@@ -6,7 +6,7 @@ This is an Elixir Phoenix application for discussions.
 
 ## Folder Structure
 
-- `config`: Contains configuration files for the app.
+- `conf`: Contains configuration files for the app.
 - `lib`: Contains source code files for the application logic.
 - `priv`: Contains private application files (e.g., assets, templates).
 - `test`: Contains test files for the application.
@@ -24,7 +24,7 @@ To set up and run this application, you need to follow these steps:
 
 To use the application, follow these steps:
 
-1. Access the application at `http://localhost:4000`
+1. Access the application at `http://https://elixir-phoenix-discuss.fly.dev/:4000`
 2. Sign up or log in with Github to start viewing and participating in discussions - Topics, comments.
 
 ## Examples
